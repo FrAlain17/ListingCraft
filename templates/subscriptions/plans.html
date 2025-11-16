@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Subscription Plans - ListingCraft{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">Choose Your Plan</h1>
+            <p class="text-xl text-gray-600">Start with a 14-day free trial. Cancel anytime.</p>
+        </div>
+
+        {% if current_subscription %}
+        <div class="mb-8 bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <p class="text-sm text-blue-700">
+                        You are currently subscribed to the <strong>{{ current_subscription.plan.name }}</strong> plan ({{ current_subscription.get_status_display }}).
+                        <a href="{% url 'subscriptions:manage' %}" class="font-medium underline hover:text-blue-600">Manage subscription</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Pricing Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            {% for plan in plans %}
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden {% if plan.plan_type == 'PRO' %}ring-2 ring-blue-600{% endif %} relative">
+                {% if plan.plan_type == 'PRO' %}
+                <div class="absolute top-0 right-0 bg-blue-600 text-white px-4 py-1 text-sm font-semibold rounded-bl-lg">
+                    Recommended
+                </div>
+                {% endif %}
+
+                <div class="p-8">
+                    <!-- Plan Header -->
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">{{ plan.name }}</h3>
+                    <p class="text-gray-600 mb-6">{{ plan.description }}</p>
+
+                    <!-- Price -->
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold text-gray-900">${{ plan.price|floatformat:0 }}</span>
+                        <span class="text-gray-600">/month</span>
+                    </div>
+
+                    <!-- Features -->
+                    <ul class="space-y-3 mb-8">
+                        {% for feature in plan.features %}
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-700">{{ feature }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+
+                    <!-- CTA Button -->
+                    {% if current_subscription and current_subscription.plan.id == plan.id %}
+                    <a href="{% url 'subscriptions:manage' %}" class="block w-full bg-gray-300 text-gray-700 text-center py-3 px-6 rounded-lg font-semibold cursor-not-allowed">
+                        Current Plan
+                    </a>
+                    {% elif current_subscription and current_subscription.status in 'ACTIVE,TRIALING' %}
+                    <button disabled class="block w-full bg-gray-200 text-gray-500 text-center py-3 px-6 rounded-lg font-semibold cursor-not-allowed">
+                        Already Subscribed
+                    </button>
+                    {% else %}
+                    <a href="{% url 'subscriptions:checkout' plan.id %}" class="block w-full {% if plan.plan_type == 'PRO' %}bg-blue-600 hover:bg-blue-700{% else %}bg-gray-900 hover:bg-gray-800{% endif %} text-white text-center py-3 px-6 rounded-lg font-semibold transition duration-200">
+                        Get Started
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="bg-white rounded-lg shadow-lg p-8 max-w-3xl mx-auto">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Is there a free trial?</h3>
+                    <p class="text-gray-600">Yes! All plans come with a 14-day free trial. No credit card required to start.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Can I cancel anytime?</h3>
+                    <p class="text-gray-600">Absolutely. You can cancel your subscription at any time with no cancellation fees.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">What happens when I reach my quota?</h3>
+                    <p class="text-gray-600">You can upgrade to a higher plan or wait until your quota resets at the start of your next billing period.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Do you offer refunds?</h3>
+                    <p class="text-gray-600">We offer a 30-day money-back guarantee on all plans.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'emails/base_email.html' %}
+
+{% block title %}Payment Failed{% endblock %}
+
+{% block content %}
+<h2>Payment Failed - Action Required</h2>
+
+<p>Hi {{ user.email }},</p>
+
+<div class="warning-box">
+    <p style="margin: 0;"><strong>⚠️ We couldn't process your payment</strong></p>
+</div>
+
+<p>We attempted to charge your payment method for your <strong>{{ subscription.plan.name }} Plan</strong> subscription, but the payment failed.</p>
+
+<p><strong>What This Means:</strong></p>
+<ul style="color: #4b5563;">
+    <li>Your subscription status is now "Past Due"</li>
+    <li>You may lose access to premium features soon</li>
+    <li>We'll retry the payment automatically in a few days</li>
+</ul>
+
+<p><strong>What You Need to Do:</strong></p>
+<ol style="color: #4b5563;">
+    <li>Update your payment method</li>
+    <li>Ensure your card has sufficient funds</li>
+    <li>Check that your card hasn't expired</li>
+</ol>
+
+<p style="text-align: center;">
+    <a href="{{ billing_url }}" class="button">Update Payment Method</a>
+</p>
+
+<div class="divider"></div>
+
+<p><strong>Common Reasons for Payment Failure:</strong></p>
+<ul style="color: #4b5563; font-size: 14px;">
+    <li>Insufficient funds</li>
+    <li>Expired credit card</li>
+    <li>Incorrect billing information</li>
+    <li>Card declined by issuing bank</li>
+</ul>
+
+<p>If you continue to experience issues, please contact your bank or reach out to our support team at <a href="mailto:support@listingcraft.online">support@listingcraft.online</a>.</p>
+
+<p>We're here to help!<br>
+The ListingCraft Team</p>
+{% endblock %}

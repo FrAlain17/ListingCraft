@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Checkout Cancelled - ListingCraft{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full">
+        <div class="bg-white rounded-lg shadow-lg p-8 text-center">
+            <!-- Cancel Icon -->
+            <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-gray-100 mb-6">
+                <svg class="h-10 w-10 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </div>
+
+            <!-- Cancel Message -->
+            <h1 class="text-3xl font-bold text-gray-900 mb-4">Checkout Cancelled</h1>
+            <p class="text-gray-600 mb-8">
+                No worries! You can subscribe to a plan whenever you're ready.
+            </p>
+
+            <!-- Info Box -->
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8">
+                <p class="text-sm text-blue-700">
+                    All plans come with a 14-day free trial and can be cancelled anytime.
+                </p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="space-y-3">
+                <a href="{% url 'subscriptions:plans' %}"
+                   class="block w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold transition duration-200">
+                    View Plans Again
+                </a>
+                <a href="{% url 'landing:home' %}"
+                   class="block w-full bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 px-6 rounded-lg font-semibold transition duration-200">
+                    Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

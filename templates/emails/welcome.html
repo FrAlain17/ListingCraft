@@ -1,0 +1,42 @@
+{% extends 'emails/base_email.html' %}
+
+{% block title %}Welcome to ListingCraft{% endblock %}
+
+{% block content %}
+<h2>Welcome to ListingCraft! 🎉</h2>
+
+<p>Hi {{ user.email }},</p>
+
+<p>Thank you for signing up for ListingCraft! We're excited to have you on board.</p>
+
+<p>With ListingCraft, you can generate professional, AI-powered property descriptions in seconds. Here's what you can do:</p>
+
+<div class="highlight-box">
+    <ul style="margin: 0; padding-left: 20px;">
+        <li>Generate compelling property descriptions with AI</li>
+        <li>Choose from multiple tone options (Professional, Luxury, Friendly, etc.)</li>
+        <li>Save and edit your listings</li>
+        <li>Track your usage and quota</li>
+    </ul>
+</div>
+
+<p><strong>Next Steps:</strong></p>
+<ol style="color: #4b5563;">
+    <li>Choose a subscription plan to start generating descriptions</li>
+    <li>Create your first listing</li>
+    <li>Let our AI work its magic!</li>
+</ol>
+
+<p style="text-align: center;">
+    <a href="{{ login_url }}" class="button">Get Started</a>
+</p>
+
+<div class="divider"></div>
+
+<p>All plans include a <strong>14-day free trial</strong> and a 30-day money-back guarantee.</p>
+
+<p>If you have any questions, don't hesitate to reach out to our support team at <a href="mailto:support@listingcraft.online">support@listingcraft.online</a>.</p>
+
+<p>Happy listing!<br>
+The ListingCraft Team</p>
+{% endblock %}

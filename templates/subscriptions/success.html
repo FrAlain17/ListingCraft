@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Subscription Success - ListingCraft{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full">
+        <div class="bg-white rounded-lg shadow-lg p-8 text-center">
+            <!-- Success Icon -->
+            <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-6">
+                <svg class="h-10 w-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+
+            <!-- Success Message -->
+            <h1 class="text-3xl font-bold text-gray-900 mb-4">Subscription Successful!</h1>
+            <p class="text-gray-600 mb-8">
+                Welcome to ListingCraft! Your subscription is now active and you can start generating amazing property descriptions.
+            </p>
+
+            <!-- Trial Info -->
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8">
+                <p class="text-sm text-blue-700">
+                    <strong>14-day free trial active!</strong><br>
+                    You won't be charged until your trial ends. Cancel anytime.
+                </p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="space-y-3">
+                <a href="{% url 'subscriptions:manage' %}"
+                   class="block w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold transition duration-200">
+                    View Subscription Details
+                </a>
+                <a href="{% url 'landing:home' %}"
+                   class="block w-full bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 px-6 rounded-lg font-semibold transition duration-200">
+                    Go to Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

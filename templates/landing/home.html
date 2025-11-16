@@ -1,0 +1,341 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}ListingCraft - AI-Powered Real Estate Listing Descriptions{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="bg-gradient-to-br from-blue-50 to-indigo-100 py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 mb-6">
+                AI-Powered Real Estate <br>
+                <span class="text-blue-600">Listing Descriptions</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                Generate compelling, SEO-friendly property descriptions in seconds using AI.
+                Save time, attract more buyers, and close deals faster.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                {% if user.is_authenticated %}
+                    <a href="/admin/" class="btn-primary text-lg px-8 py-4">
+                        Go to Dashboard
+                    </a>
+                {% else %}
+                    <a href="{% url 'account_signup' %}" class="btn-primary text-lg px-8 py-4">
+                        Start Free Trial
+                    </a>
+                    <a href="#pricing" class="btn-secondary text-lg px-8 py-4">
+                        View Pricing
+                    </a>
+                {% endif %}
+            </div>
+            <p class="mt-4 text-sm text-gray-500">
+                14-day free trial • No credit card required • Cancel anytime
+            </p>
+        </div>
+
+        <!-- Demo/Screenshot Placeholder -->
+        <div class="mt-16 relative">
+            <div class="bg-white rounded-lg shadow-2xl p-8 max-w-4xl mx-auto">
+                <div class="flex items-center space-x-2 mb-4">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+                <div class="bg-gray-50 rounded p-6 text-left">
+                    <p class="text-gray-800 leading-relaxed">
+                        <strong class="text-blue-600">Generated Description:</strong><br><br>
+                        "Discover luxury living in this stunning 3-bedroom waterfront villa. Featuring floor-to-ceiling windows that frame breathtaking ocean views, this modern masterpiece combines elegant design with coastal sophistication. The open-concept layout seamlessly connects the gourmet kitchen to the spacious living areas, perfect for entertaining. Step outside to your private infinity pool and sun deck, where every sunset becomes a memorable experience..."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                Why Choose ListingCraft?
+            </h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Powerful features designed specifically for real estate professionals
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Feature 1 -->
+            <div class="card hover:shadow-xl transition-shadow">
+                <svg class="w-12 h-12 text-blue-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+                <h3 class="text-xl font-semibold mb-2">AI-Generated Descriptions</h3>
+                <p class="text-gray-600">
+                    Powered by DeepSeek API, our AI analyzes your property details and generates high-quality, engaging descriptions instantly.
+                </p>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="card hover:shadow-xl transition-shadow">
+                <svg class="w-12 h-12 text-blue-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <h3 class="text-xl font-semibold mb-2">Tailored to Property Type</h3>
+                <p class="text-gray-600">
+                    Descriptions optimized for apartments, houses, villas, commercial spaces, and more. Each type gets unique, relevant phrasing.
+                </p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="card hover:shadow-xl transition-shadow">
+                <svg class="w-12 h-12 text-blue-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+                </svg>
+                <h3 class="text-xl font-semibold mb-2">Multiple Tone Options</h3>
+                <p class="text-gray-600">
+                    Choose from Professional, Luxury, Friendly, or Casual tones. Target different buyer demographics with the perfect voice.
+                </p>
+            </div>
+
+            <!-- Feature 4 -->
+            <div class="card hover:shadow-xl transition-shadow">
+                <svg class="w-12 h-12 text-blue-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                <h3 class="text-xl font-semibold mb-2">SEO-Optimized</h3>
+                <p class="text-gray-600">
+                    Every description includes relevant keywords and phrases that help your listings rank higher in search results.
+                </p>
+            </div>
+
+            <!-- Feature 5 -->
+            <div class="card hover:shadow-xl transition-shadow">
+                <svg class="w-12 h-12 text-blue-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <h3 class="text-xl font-semibold mb-2">Save Time</h3>
+                <p class="text-gray-600">
+                    What used to take 30 minutes now takes 30 seconds. Spend more time showing properties and closing deals.
+                </p>
+            </div>
+
+            <!-- Feature 6 -->
+            <div class="card hover:shadow-xl transition-shadow">
+                <svg class="w-12 h-12 text-blue-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                </svg>
+                <h3 class="text-xl font-semibold mb-2">Fully Editable</h3>
+                <p class="text-gray-600">
+                    All descriptions are fully customizable. Edit, save, and reuse them as needed. Your content, your control.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                How It Works
+            </h2>
+            <p class="text-xl text-gray-600">
+                Get professional listing descriptions in three simple steps
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <!-- Step 1 -->
+            <div class="text-center">
+                <div class="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold mx-auto mb-6">
+                    1
+                </div>
+                <h3 class="text-2xl font-semibold mb-4">Add Property Details</h3>
+                <p class="text-gray-600">
+                    Enter basic information: type, location, price, size, bedrooms, key features, and target audience.
+                </p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="text-center">
+                <div class="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold mx-auto mb-6">
+                    2
+                </div>
+                <h3 class="text-2xl font-semibold mb-4">Click Generate</h3>
+                <p class="text-gray-600">
+                    Our AI analyzes your input and creates a compelling, SEO-optimized description in seconds.
+                </p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="text-center">
+                <div class="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold mx-auto mb-6">
+                    3
+                </div>
+                <h3 class="text-2xl font-semibold mb-4">Edit & Copy</h3>
+                <p class="text-gray-600">
+                    Review, customize if needed, then copy and paste into your listing. Save time, get better results.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section id="pricing" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                Simple, Transparent Pricing
+            </h2>
+            <p class="text-xl text-gray-600">
+                Choose the plan that fits your needs. Upgrade or downgrade anytime.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {% for plan in pricing_plans %}
+            <div class="card {% if plan.recommended %}ring-2 ring-blue-600 relative{% endif %} hover:shadow-xl transition-shadow">
+                {% if plan.recommended %}
+                <div class="absolute top-0 right-0 bg-blue-600 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg rounded-tr-lg">
+                    RECOMMENDED
+                </div>
+                {% endif %}
+
+                <div class="text-center">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">{{ plan.name }}</h3>
+                    <p class="text-gray-600 mb-6">{{ plan.description }}</p>
+
+                    <div class="mb-6">
+                        <span class="text-5xl font-extrabold text-gray-900">${{ plan.price }}</span>
+                        <span class="text-gray-600">/{{ plan.period }}</span>
+                    </div>
+
+                    <ul class="text-left space-y-3 mb-8">
+                        {% for feature in plan.features %}
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-gray-600">{{ feature }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'subscriptions:plans' %}" class="{% if plan.recommended %}btn-primary{% else %}btn-secondary{% endif %} w-full justify-center">
+                        {{ plan.cta_text }}
+                    </a>
+                    {% else %}
+                    <a href="{% url 'account_signup' %}" class="{% if plan.recommended %}btn-primary{% else %}btn-secondary{% endif %} w-full justify-center">
+                        {{ plan.cta_text }}
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <p class="text-center text-gray-600 mt-8">
+            All plans include a 14-day free trial and 30-day money-back guarantee
+        </p>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section id="team" class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                Meet Our Team
+            </h2>
+            <p class="text-xl text-gray-600">
+                Real estate experts and tech innovators working to transform the industry
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+            {% for member in team_members %}
+            <div class="text-center">
+                <img src="{{ member.avatar }}" alt="{{ member.name }}" class="w-32 h-32 rounded-full mx-auto mb-4">
+                <h3 class="text-xl font-semibold text-gray-900">{{ member.name }}</h3>
+                <p class="text-blue-600 font-medium mb-2">{{ member.role }}</p>
+                <p class="text-sm text-gray-600">{{ member.bio }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section id="faq" class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                Frequently Asked Questions
+            </h2>
+            <p class="text-xl text-gray-600">
+                Everything you need to know about ListingCraft
+            </p>
+        </div>
+
+        <div class="space-y-4" x-data="{ openFaq: null }">
+            {% for faq in faqs %}
+            <div class="border border-gray-200 rounded-lg">
+                <button
+                    @click="openFaq = openFaq === {{ forloop.counter }} ? null : {{ forloop.counter }}"
+                    class="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors"
+                >
+                    <span class="font-semibold text-gray-900">{{ faq.question }}</span>
+                    <svg
+                        class="w-5 h-5 text-gray-500 transform transition-transform"
+                        :class="{ 'rotate-180': openFaq === {{ forloop.counter }} }"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div
+                    x-show="openFaq === {{ forloop.counter }}"
+                    x-transition
+                    class="px-6 pb-4"
+                >
+                    <p class="text-gray-600">{{ faq.answer }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 bg-gradient-to-r from-blue-600 to-indigo-700">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-4xl font-bold text-white mb-6">
+            Ready to Transform Your Listings?
+        </h2>
+        <p class="text-xl text-blue-100 mb-8">
+            Join thousands of real estate professionals using AI to create better property descriptions
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'account_signup' %}" class="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-blue-50 transition-colors text-lg">
+                Start Your Free Trial
+            </a>
+            <a href="{% url 'account_login' %}" class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors text-lg">
+                Sign In
+            </a>
+        </div>
+        <p class="mt-4 text-blue-100 text-sm">
+            No credit card required • 14-day free trial • Cancel anytime
+        </p>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Login - ListingCraft{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8">
+        <div>
+            <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+                Sign in to your account
+            </h2>
+            <p class="mt-2 text-center text-sm text-gray-600">
+                Or
+                <a href="{% url 'account_signup' %}" class="font-medium text-blue-600 hover:text-blue-500">
+                    create a new account
+                </a>
+            </p>
+        </div>
+
+        <form class="mt-8 space-y-6" method="POST" action="{% url 'account_login' %}">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="rounded-md bg-red-50 p-4">
+                    <div class="flex">
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-red-800">
+                                {{ form.non_field_errors }}
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="rounded-md shadow-sm -space-y-px">
+                <div>
+                    <label for="id_login" class="sr-only">Email address</label>
+                    <input
+                        id="id_login"
+                        name="login"
+                        type="email"
+                        autocomplete="email"
+                        required
+                        class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                        placeholder="Email address"
+                        {% if form.login.value %}value="{{ form.login.value }}"{% endif %}
+                    >
+                    {% if form.login.errors %}
+                        <p class="mt-2 text-sm text-red-600">{{ form.login.errors.0 }}</p>
+                    {% endif %}
+                </div>
+                <div>
+                    <label for="id_password" class="sr-only">Password</label>
+                    <input
+                        id="id_password"
+                        name="password"
+                        type="password"
+                        autocomplete="current-password"
+                        required
+                        class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                        placeholder="Password"
+                    >
+                    {% if form.password.errors %}
+                        <p class="mt-2 text-sm text-red-600">{{ form.password.errors.0 }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <input
+                        id="id_remember"
+                        name="remember"
+                        type="checkbox"
+                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                        {% if form.remember.value %}checked{% endif %}
+                    >
+                    <label for="id_remember" class="ml-2 block text-sm text-gray-900">
+                        Remember me
+                    </label>
+                </div>
+
+                <div class="text-sm">
+                    <a href="{% url 'account_reset_password' %}" class="font-medium text-blue-600 hover:text-blue-500">
+                        Forgot your password?
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <button type="submit" class="btn-primary w-full justify-center">
+                    Sign in
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

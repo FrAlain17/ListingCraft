@@ -1,0 +1,45 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>{% block title %}ListingCraft - AI-Powered Real Estate Listing Descriptions{% endblock %}</title>
+
+    <meta name="description" content="{% block meta_description %}Generate compelling, SEO-friendly property descriptions in seconds using AI.{% endblock %}">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+
+    <!-- Tailwind CSS -->
+    {% tailwind_css %}
+
+    <!-- Additional CSS -->
+    {% block extra_css %}{% endblock %}
+
+    <!-- Alpine.js for interactivity (optional but useful) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="h-full flex flex-col bg-gray-50">
+    <!-- Navbar -->
+    {% include 'components/navbar.html' %}
+
+    <!-- Alert Messages -->
+    {% if messages %}
+        {% include 'components/alerts.html' %}
+    {% endif %}
+
+    <!-- Main Content -->
+    <main class="flex-1">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    {% include 'components/footer.html' %}
+
+    <!-- Additional JavaScript -->
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

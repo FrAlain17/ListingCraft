@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Manage Subscription - ListingCraft{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Subscription Management</h1>
+            <p class="text-gray-600">Manage your subscription and view usage statistics</p>
+        </div>
+
+        <!-- Current Subscription Card -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900">{{ subscription.plan.name }} Plan</h2>
+                    <p class="text-gray-600 mt-1">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
+                            {% if subscription.status == 'ACTIVE' %}bg-green-100 text-green-800
+                            {% elif subscription.status == 'TRIALING' %}bg-blue-100 text-blue-800
+                            {% elif subscription.status == 'PAST_DUE' %}bg-yellow-100 text-yellow-800
+                            {% else %}bg-gray-100 text-gray-800{% endif %}">
+                            {{ subscription.get_status_display }}
+                        </span>
+                    </p>
+                </div>
+                <div class="text-right">
+                    <p class="text-3xl font-bold text-gray-900">${{ subscription.plan.price|floatformat:0 }}</p>
+                    <p class="text-gray-600">per month</p>
+                </div>
+            </div>
+
+            <!-- Subscription Details -->
+            <div class="border-t border-gray-200 pt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <p class="text-sm font-medium text-gray-500 mb-1">Current Period</p>
+                    {% if subscription.current_period_start and subscription.current_period_end %}
+                    <p class="text-gray-900">
+                        {{ subscription.current_period_start|date:"M d, Y" }} - {{ subscription.current_period_end|date:"M d, Y" }}
+                    </p>
+                    {% else %}
+                    <p class="text-gray-900">Not available</p>
+                    {% endif %}
+                </div>
+
+                {% if subscription.trial_end and subscription.status == 'TRIALING' %}
+                <div>
+                    <p class="text-sm font-medium text-gray-500 mb-1">Trial Ends</p>
+                    <p class="text-gray-900">{{ subscription.trial_end|date:"M d, Y" }}</p>
+                </div>
+                {% endif %}
+
+                {% if subscription.cancel_at_period_end %}
+                <div class="col-span-2">
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                        <p class="text-sm text-yellow-700">
+                            Your subscription will be cancelled on {{ subscription.current_period_end|date:"M d, Y" }}
+                        </p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Usage Statistics Card -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-xl font-bold text-gray-900 mb-6">Usage Statistics</h2>
+
+            <!-- Quota Progress -->
+            <div class="mb-6">
+                <div class="flex items-center justify-between mb-2">
+                    <p class="text-sm font-medium text-gray-700">Descriptions Generated</p>
+                    <p class="text-sm font-medium text-gray-900">
+                        {{ usage.descriptions_generated }}
+                        {% if subscription.plan.description_quota != -1 %}
+                        / {{ subscription.plan.description_quota }}
+                        {% endif %}
+                    </p>
+                </div>
+
+                {% if subscription.plan.description_quota != -1 %}
+                <!-- Progress Bar -->
+                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div class="{% if usage_percentage >= 90 %}bg-red-600{% elif usage_percentage >= 70 %}bg-yellow-500{% else %}bg-blue-600{% endif %} h-2.5 rounded-full"
+                         style="width: {% if usage_percentage > 100 %}100{% else %}{{ usage_percentage|floatformat:0 }}{% endif %}%"></div>
+                </div>
+
+                <div class="mt-2 text-sm text-gray-600">
+                    {% if quota_remaining > 0 %}
+                    {{ quota_remaining }} descriptions remaining this month
+                    {% else %}
+                    <span class="text-red-600 font-medium">Quota exceeded. Upgrade your plan or wait for reset.</span>
+                    {% endif %}
+                </div>
+                {% else %}
+                <div class="flex items-center text-green-600 text-sm">
+                    <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Unlimited descriptions
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Period Info -->
+            <div class="border-t border-gray-200 pt-4">
+                <p class="text-sm text-gray-600">
+                    Current billing period: {{ usage.period_start|date:"M d, Y" }} - {{ usage.period_end|date:"M d, Y" }}
+                </p>
+            </div>
+        </div>
+
+        <!-- Plan Features -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-xl font-bold text-gray-900 mb-6">Plan Features</h2>
+            <ul class="space-y-3">
+                {% for feature in subscription.plan.features %}
+                <li class="flex items-start">
+                    <svg class="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span class="text-gray-700">{{ feature }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <a href="{% url 'subscriptions:billing_portal' %}"
+               class="bg-blue-600 hover:bg-blue-700 text-white text-center py-3 px-6 rounded-lg font-semibold transition duration-200">
+                Update Payment Method
+            </a>
+
+            {% if not subscription.cancel_at_period_end and subscription.status in 'ACTIVE,TRIALING' %}
+            <form method="post" action="{% url 'subscriptions:cancel_subscription' %}" onsubmit="return confirm('Are you sure you want to cancel your subscription?');">
+                {% csrf_token %}
+                <button type="submit"
+                        class="w-full bg-red-600 hover:bg-red-700 text-white py-3 px-6 rounded-lg font-semibold transition duration-200">
+                    Cancel Subscription
+                </button>
+            </form>
+            {% endif %}
+
+            <a href="{% url 'subscriptions:plans' %}"
+               class="bg-gray-200 hover:bg-gray-300 text-gray-800 text-center py-3 px-6 rounded-lg font-semibold transition duration-200">
+                View All Plans
+            </a>
+
+            <a href="{% url 'landing:home' %}"
+               class="bg-gray-200 hover:bg-gray-300 text-gray-800 text-center py-3 px-6 rounded-lg font-semibold transition duration-200">
+                Back to Dashboard
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Create Listing - ListingCraft{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Create New Listing</h1>
+            <p class="text-gray-600 mt-1">Fill in the property details to generate an AI-powered description</p>
+        </div>
+
+        <!-- Form -->
+        <form method="post" class="bg-white rounded-lg shadow-lg p-8">
+            {% csrf_token %}
+
+            {% if form.errors %}
+            <div class="mb-6 bg-red-50 border border-red-200 rounded-lg p-4">
+                <p class="text-red-800 font-semibold">Please correct the errors below:</p>
+                <ul class="list-disc list-inside text-red-700 mt-2">
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                            <li>{{ field }}: {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <!-- Property Info Section -->
+            <div class="mb-8">
+                <h2 class="text-xl font-bold text-gray-900 mb-4">Property Information</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">{{ form.property_type.label }}</label>
+                        {{ form.property_type }}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">{{ form.title.label }}</label>
+                        {{ form.title }}
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700">{{ form.price.label }}</label>
+                        {{ form.price }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Location Section -->
+            <div class="mb-8">
+                <h2 class="text-xl font-bold text-gray-900 mb-4">Location</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700">{{ form.address.label }}</label>
+                        {{ form.address }}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">{{ form.city.label }}</label>
+                        {{ form.city }}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">{{ form.state.label }}</label>
+                        {{ form.state }}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">{{ form.country.label }}</label>
+                        {{ form.country }}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">{{ form.zip_code.label }}</label>
+                        {{ form.zip_code }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Property Details Section -->
+            <div class="mb-8">
+                <h2 class="text-xl font-bold text-gray-900 mb-4">Property Details</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">{{ form.bedrooms.label }}</label>
+                        {{ form.bedrooms }}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">{{ form.bathrooms.label }}</label>
+                        {{ form.bathrooms }}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">{{ form.square_feet.label }}</label>
+                        {{ form.square_feet }}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">{{ form.lot_size.label }}</label>
+                        {{ form.lot_size }}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">{{ form.year_built.label }}</label>
+                        {{ form.year_built }}
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <label class="block text-sm font-medium text-gray-700">{{ form.key_features_text.label }}</label>
+                    {{ form.key_features_text }}
+                    <p class="text-xs text-gray-500 mt-1">{{ form.key_features_text.help_text }}</p>
+                </div>
+            </div>
+
+            <!-- Generation Settings Section -->
+            <div class="mb-8">
+                <h2 class="text-xl font-bold text-gray-900 mb-4">Description Settings</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">{{ form.tone.label }}</label>
+                        {{ form.tone }}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">{{ form.target_audience.label }}</label>
+                        {{ form.target_audience }}
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700">{{ form.additional_notes.label }}</label>
+                        {{ form.additional_notes }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex items-center justify-between pt-6 border-t border-gray-200">
+                <a href="{% url 'dashboard:overview' %}" class="text-gray-600 hover:text-gray-800 font-medium">
+                    Cancel
+                </a>
+                <button type="submit" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-200">
+                    Generate Description
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

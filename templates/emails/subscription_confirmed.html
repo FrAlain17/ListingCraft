@@ -1,0 +1,48 @@
+{% extends 'emails/base_email.html' %}
+
+{% block title %}Subscription Confirmed{% endblock %}
+
+{% block content %}
+<h2>Subscription Confirmed! ✓</h2>
+
+<p>Hi {{ user.email }},</p>
+
+<p>Your subscription to the <strong>{{ subscription.plan.name }} Plan</strong> has been successfully confirmed!</p>
+
+<div class="highlight-box">
+    <p style="margin: 0;"><strong>Plan Details:</strong></p>
+    <ul style="margin: 10px 0 0 0; padding-left: 20px;">
+        <li><strong>Plan:</strong> {{ subscription.plan.name }}</li>
+        <li><strong>Price:</strong> ${{ subscription.plan.price }}/month</li>
+        <li><strong>Quota:</strong>
+            {% if subscription.plan.description_quota == -1 %}
+                Unlimited descriptions
+            {% else %}
+                {{ subscription.plan.description_quota }} descriptions per month
+            {% endif %}
+        </li>
+        {% if subscription.trial_end %}
+        <li><strong>Trial Ends:</strong> {{ subscription.trial_end|date:"F d, Y" }}</li>
+        {% endif %}
+    </ul>
+</div>
+
+<p><strong>What's Included:</strong></p>
+<ul style="color: #4b5563;">
+    {% for feature in subscription.plan.features %}
+    <li>{{ feature }}</li>
+    {% endfor %}
+</ul>
+
+<p style="text-align: center;">
+    <a href="{{ dashboard_url }}" class="button">Go to Dashboard</a>
+</p>
+
+<div class="divider"></div>
+
+<p><strong>Need Help?</strong></p>
+<p>Check out our <a href="https://listingcraft.online/docs">documentation</a> or contact support at <a href="mailto:support@listingcraft.online">support@listingcraft.online</a>.</p>
+
+<p>Thanks for choosing ListingCraft!<br>
+The ListingCraft Team</p>
+{% endblock %}

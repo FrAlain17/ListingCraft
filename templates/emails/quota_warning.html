@@ -1,0 +1,66 @@
+{% extends 'emails/base_email.html' %}
+
+{% block title %}Quota Warning{% endblock %}
+
+{% block content %}
+<h2>Quota Alert: {{ percentage }}% Used</h2>
+
+<p>Hi {{ user.email }},</p>
+
+{% if percentage >= 100 %}
+<div class="warning-box">
+    <p style="margin: 0;"><strong>⚠️ You've reached your monthly quota limit!</strong></p>
+</div>
+
+<p>You've used all <strong>{{ usage.descriptions_generated }}</strong> of your {{ subscription.plan.description_quota }} descriptions for this month.</p>
+
+<p>To continue generating property descriptions, you'll need to:</p>
+<ul style="color: #4b5563;">
+    <li>Upgrade to a higher plan with more descriptions</li>
+    <li>Wait until your quota resets on {{ usage.period_end|date:"F d, Y" }}</li>
+</ul>
+
+{% elif percentage >= 90 %}
+<div class="warning-box">
+    <p style="margin: 0;"><strong>⚠️ You're running low on descriptions!</strong></p>
+</div>
+
+<p>You've used <strong>{{ usage.descriptions_generated }}</strong> of your {{ subscription.plan.description_quota }} descriptions ({{ percentage }}%).</p>
+
+<p>You have only <strong>{{ remaining }} descriptions</strong> remaining this month.</p>
+
+<p>Consider upgrading to avoid running out before your quota resets on {{ usage.period_end|date:"F d, Y" }}.</p>
+
+{% else %}
+<div class="warning-box">
+    <p style="margin: 0;"><strong>Heads up: You've used {{ percentage }}% of your quota</strong></p>
+</div>
+
+<p>You've used <strong>{{ usage.descriptions_generated }}</strong> of your {{ subscription.plan.description_quota }} descriptions.</p>
+
+<p>You have <strong>{{ remaining }} descriptions</strong> remaining this month.</p>
+{% endif %}
+
+<div class="highlight-box">
+    <p style="margin: 0;"><strong>Current Plan:</strong> {{ subscription.plan.name }}</p>
+    <p style="margin: 5px 0 0 0;"><strong>Monthly Quota:</strong> {{ subscription.plan.description_quota }} descriptions</p>
+    <p style="margin: 5px 0 0 0;"><strong>Resets:</strong> {{ usage.period_end|date:"F d, Y" }}</p>
+</div>
+
+<p style="text-align: center;">
+    <a href="{{ plans_url }}" class="button">Upgrade Your Plan</a>
+</p>
+
+<div class="divider"></div>
+
+<p><strong>Available Plans:</strong></p>
+<ul style="color: #4b5563;">
+    <li><strong>Pro Plan:</strong> 200 descriptions/month - $79/month</li>
+    <li><strong>Agency Plan:</strong> Unlimited descriptions - $199/month</li>
+</ul>
+
+<p>Questions? Contact us at <a href="mailto:support@listingcraft.online">support@listingcraft.online</a>.</p>
+
+<p>Best regards,<br>
+The ListingCraft Team</p>
+{% endblock %}

@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "Bash(source venv/bin/activate)",
+      "Bash(pip install:*)",
+      "Bash(django-admin:*)",
+      "Bash(python manage.py check:*)",
+      "Bash(python manage.py tailwind:*)",
+      "Bash(python manage.py startapp:*)",
+      "Bash(python manage.py migrate:*)",
+      "Bash(python:*)",
+      "Bash(chmod:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

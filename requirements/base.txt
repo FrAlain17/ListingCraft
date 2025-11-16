@@ -1,0 +1,40 @@
+# Core Django
+Django>=5.0,<5.1
+
+# Database
+psycopg2-binary>=2.9.9
+
+# Environment variables
+python-decouple>=3.8
+
+# Authentication
+django-allauth>=0.57.0
+
+# Payments
+dj-stripe>=2.8.0
+
+# UI
+django-tailwind>=3.8.0
+
+# Email
+django-anymail[resend]>=10.2
+
+# Admin
+django-unfold>=0.16.0
+
+# Rate limiting
+django-ratelimit>=4.1.0
+
+# Background tasks
+celery>=5.3.4
+redis>=5.0.1
+
+# HTTP client for DeepSeek API
+requests>=2.31.0
+
+# Image handling
+Pillow>=10.1.0
+
+# Utilities
+python-dateutil>=2.8.2
+bleach>=6.1.0  # HTML sanitization

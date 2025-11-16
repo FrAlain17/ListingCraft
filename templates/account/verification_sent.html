@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Verification Email Sent - ListingCraft{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8">
+        <div class="text-center">
+            <svg class="mx-auto h-16 w-16 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+            <h2 class="mt-6 text-3xl font-extrabold text-gray-900">
+                Verify your email address
+            </h2>
+            <p class="mt-2 text-sm text-gray-600">
+                We've sent a confirmation email to <strong>{{ email }}</strong>
+            </p>
+        </div>
+
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+            <p class="text-sm text-gray-700">
+                Please check your inbox and click the confirmation link to complete your registration.
+            </p>
+            <p class="text-sm text-gray-700 mt-4">
+                Didn't receive the email? Check your spam folder or <a href="{% url 'account_email' %}" class="text-blue-600 hover:text-blue-500 font-medium">resend confirmation email</a>.
+            </p>
+        </div>
+
+        <div class="text-center">
+            <a href="/" class="text-sm text-blue-600 hover:text-blue-500">
+                Back to homepage
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

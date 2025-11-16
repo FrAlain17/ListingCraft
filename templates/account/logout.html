@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Logout - ListingCraft{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8">
+        <div class="text-center">
+            <h2 class="mt-6 text-3xl font-extrabold text-gray-900">
+                Sign out
+            </h2>
+            <p class="mt-2 text-sm text-gray-600">
+                Are you sure you want to sign out?
+            </p>
+        </div>
+
+        <form method="POST" action="{% url 'account_logout' %}" class="mt-8">
+            {% csrf_token %}
+            {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+            {% endif %}
+
+            <div class="space-y-4">
+                <button type="submit" class="btn-primary w-full justify-center">
+                    Sign Out
+                </button>
+
+                <a href="/" class="btn-secondary w-full justify-center block text-center">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
